@@ -77,4 +77,5 @@ theme: vexo
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: https://zeniuus@github.com/zeniuus/zeniuus.github.io
