@@ -1,5 +1,5 @@
 ---
-title: Project Manager로서의 한탄
+title: 2018.03.24.
 date: 2018-03-24 16:18:40
 categories:
   - Diary
