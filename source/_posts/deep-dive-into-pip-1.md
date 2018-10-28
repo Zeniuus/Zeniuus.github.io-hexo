@@ -1,7 +1,8 @@
 ---
 title: Deep Dive into pip - 1
 date: 2018-10-24 22:08:06
-ca:
+categories:
+  - Develop
 ---
 # Intro
 
