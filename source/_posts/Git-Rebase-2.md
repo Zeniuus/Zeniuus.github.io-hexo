@@ -30,7 +30,7 @@ categories:
 
 그러면 실제로 `git rebase`의 interactive mode를 통해 과거의 커밋을 바꿔보도록 하겠습니다. 우선 `git log --graph`를 통해 이 블로그 레포지토리의 커밋 히스토리를 확인해봅시다.
 
-![Zeniuus의 블로그 커밋 히스토리](https://zeniuus.github.io/assets/images/git_rebase_example/blog_repo_commit_history.png)
+![Zeniuus의 블로그 커밋 히스토리](/images/git_rebase_example/blog_repo_commit_history.png)
 
 만약 제가 이전 Python3 context manager 글에 오타가 있어서 수정해야 한다고 해보죠. 그러면 head 위치의 커밋까지 포함하여 4개 전의 커밋을 수정해야 하니까 아래와 같이 `git rebase`의 interactive mode를 켜보도록 합시다.
 
@@ -40,7 +40,7 @@ categories:
 
 위의 커맨드를 입력하면 아래와 같은 vim 창이 뜰 것입니다.
 
-![git rebase interactive mode (1)](https://zeniuus.github.io/assets/images/git_rebase_example/git_rebase_interactive_mode_1.png)
+![git rebase interactive mode (1)](/images/git_rebase_example/git_rebase_interactive_mode_1.png)
 
 창 맨 위쪽에는 "[이 커밋에 적용할 액션] [커밋 해시] [커밋 메세지]"의 구조로 되어 있고, 아래 Commands에는 각 커밋에 적용할 수 있는 옵션과 옵션에 대한 설명이 있습니다. 현재 각 커밋 앞에 pick이 적혀있는 것을 보니 default로는 특별한 변화 없이 새 base에 모든 커밋을 동일하게 적용시킬 것입니다.
 
@@ -48,25 +48,25 @@ categories:
 
 이제 본격적으로 과거의 커밋을 수정해보도록 하겠습니다. Commands의 설명을 보면, 수정을 하고 싶을 때 사용하는 옵션은 "e" 또는 "edit"이라고 되어있군요. 따라서 Python3 context manager 포스팅의 오타를 수정하기 위해 아래 사진과 같이 `2297f8e` 커밋 앞의 "pick"을 "edit"으로 바꾸고 :wq를 통해 vim을 빠져나오겠습니다.
 
-![git rebase interactive mode (2)](https://zeniuus.github.io/assets/images/git_rebase_example/git_rebase_interactive_mode_2.png)
+![git rebase interactive mode (2)](/images/git_rebase_example/git_rebase_interactive_mode_2.png)
 
 그러면 아래 사진과 같은 화면이 뜹니다.
 
-![git rebase edit (1)](https://zeniuus.github.io/assets/images/git_rebase_example/git_rebase_edit_1.png)
+![git rebase edit (1)](/images/git_rebase_example/git_rebase_edit_1.png)
 
 딱 우리가 "edit"을 입력했던 `2297f8e` 커밋에서 HEAD가 멈춰있습니다. 그리고 설명을 읽어보면, 너는 이제 커밋을 amend 할 수 있고, 고칠만큼 고친 이후에는 `git rebase --continue`를 실행하라고 돼있습니다.
 
 그러면 설명대로 한번 진행해보겠습니다. 파일에서 오타를 수정하고 `git add .`와 `git commit --amend`를 통해 현재 커밋을 덮어씌웁니다.
 
-![git rebase edit (2)](https://zeniuus.github.io/assets/images/git_rebase_example/git_rebase_edit_2.png)
+![git rebase edit (2)](/images/git_rebase_example/git_rebase_edit_2.png)
 
 짜잔~ 이제 커밋이 잘 수정되었으니 `git rebase --continue`를 통해 나머지 커밋들에 대해서도 rebase를 진행하...려고 할 때! conflict가 뜰 수도 있습니다.
 
-![git rebase edit (3)](https://zeniuus.github.io/assets/images/git_rebase_example/git_rebase_edit_3.png)
+![git rebase edit (3)](/images/git_rebase_example/git_rebase_edit_3.png)
 
 그럴 땐 당황하지 않고 적당히 conflict를 해소해준 뒤, 다시 `git rebase --continue`를 통해 rebase를 다시 실행시키면 됩니다.
 
-![git rebase edit (4)](https://zeniuus.github.io/assets/images/git_rebase_example/git_rebase_edit_4.png)
+![git rebase edit (4)](/images/git_rebase_example/git_rebase_edit_4.png)
 
 짜잔~ 정상적으로 잘 수정되었습니다. 커밋 히스토리를 확인해보셔도 커밋이 삐죽 튀어나오는 일 없이 깔끔하게 이전 커밋만 변경되었을 것입니다.
 
@@ -78,7 +78,7 @@ categories:
 
 `git rebase` manual에 나와있는 예시를 통해 조금 더 자세하게 알아보도록 하겠습니다. 현재 작업하는 레포지토리의 커밋 히스토리 모습이 아래 사진과 같은 상황이라고 해보겠습니다.
 
-![master, next, topic 브랜치가 있는 커밋 히스토리](https://zeniuus.github.io/assets/images/git_rebase_example/three_branch_commit_history.png)
+![master, next, topic 브랜치가 있는 커밋 히스토리](/images/git_rebase_example/three_branch_commit_history.png)
 
 master 브랜치는 실제 릴리즈가 된 브랜치고, next 브랜치에서는 다음에 릴리즈 할 기능을 구현하고 있고, topic 브랜치는 그러한 기능 중 하나일 것입니다. 그런데 이 때 topic 브랜치에서 구현하던 기능을 급하게 master에 merge 해야하는 상황이 생길 수 있습니다. 이런 상황에서 `--onto` 옵션을 활용한 rebase를 하면 깔끔하게 topic 브랜치에서 구현한 기능을 master로 옮길 수 있습니다.
 
@@ -86,7 +86,7 @@ master 브랜치는 실제 릴리즈가 된 브랜치고, next 브랜치에서�
 
 위의 명령어를 입력하면 아래와 같이 next 브랜치는 그대로 남아있고, topic 브랜치에서 구현한 기능만 master 브랜치로 옮겨가게 됩니다.
 
-![--onto 옵션을 활용한 rebase](https://zeniuus.github.io/assets/images/git_rebase_example/git_rebase_with_onto_option.png)
+![--onto 옵션을 활용한 rebase](/images/git_rebase_example/git_rebase_with_onto_option.png)
 
 위의 커맨드를 조금 더 분석해보면 아래와 같은 구조로 되어있음을 알 수 있습니다.
 

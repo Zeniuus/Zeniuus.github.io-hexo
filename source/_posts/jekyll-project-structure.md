@@ -52,7 +52,7 @@ categories:
 
     파일을 열어보시면 아래와 같이 작성되어 있을 것입니다. 작성되어있는 내용은 테마마다 다를 수 있습니다.
 
-    ![_config.yml 이미지](https://zeniuus.github.io/assets/images/jekyll_directorystructure/config.png)
+    ![_config.yml 이미지](/images/jekyll_directorystructure/config.png)
 
 	여기서 잘 보시면 주석으로 Site settings, Build settings, Posts settings, Theme settings라는 항목들이 있는데, 우리는 블로그의 많은 것을 커스터마이즈 하지 않을 것이므로 Site settings가 뭔지만 알면 됩니다.
 
@@ -67,7 +67,7 @@ categories:
 
 	그 중 `post.html` 파일을 열어보겠습니다. 파일을 열어보면 아래와 같이 작성되어 있음을 확인할 수 있습니다.
 
-	![post.html 이미지](https://zeniuus.github.io/assets/images/jekyll_directorystructure/layout_post.png)
+	![post.html 이미지](/images/jekyll_directorystructure/layout_post.png)
 
 	보시면 일반적인 html 파일과 몇가지 다른 점이 보입니다.
 
@@ -79,7 +79,7 @@ categories:
 
 		그러면 `default.html` 파일에는 html, head, body tag가 있을까요? 확인해보겠습니다.
 
-		![default.html 이미지](https://zeniuus.github.io/assets/images/jekyll_directorystructure/layout_default.png)
+		![default.html 이미지](/images/jekyll_directorystructure/layout_default.png)
 
 		`default.html` 파일에 제대로 html, body tag와 \{ \{ content \} \}가 있음을 확인할 수 있습니다(head tag가 없는 것은 뒤의 `_includes` 부분에서 다룹니다). 즉, `default.html` 파일의 이 \{ \{ content \} \} 부분에 `post.html` 파일의 소스코드가 삽입되어 렌더링 될 것입니다.
 
@@ -102,7 +102,7 @@ categories:
 
 	대충 느낌을 보아하니 뭔가 \{ \{ content \} \}랑 비슷한 역할을 할 것 같죠? 맞습니다. 이 \{ \{ include xxx \} \}를 통해 `_includes` 폴더에 있는 파일을 추출하여 사용할 수 있습니다. 그러면 바로 html tag 아래에 포함되어 있는 `head.html` 파일을 한번 확인해볼까요?
 
-	![head.html 이미지](https://zeniuus.github.io/assets/images/jekyll_directorystructure/include_head.png)
+	![head.html 이미지](/images/jekyll_directorystructure/include_head.png)
 
 	`head.html` 파일이 YAML 헤더 없이 head tag와 함께 시작하는 것을 확인할 수 있습니다. 위의 `default.html` 파일에 head tag가 없는데, 그 부분에 삽입되면 딱이겠군요. 이런 식으로 자주 사용되는 코드들을 `_includes` 폴더에 따로 저장하고 재사용하면 편리합니다.
 
@@ -115,7 +115,7 @@ categories:
 
 	여기에 들어가는 글은 기본적으로는 보통의 마크업 언어로 작성하는 대로 작성하시면 되지만, 한 가지 특별한 것이 있습니다. 바로 아래 사진과 같이 파일 맨 위에 YAML 헤더가 있다는 것입니다. 
 
-	![YAML 헤더 이미지](https://zeniuus.github.io/assets/images/jekyll_directorystructure/post_example.png)
+	![YAML 헤더 이미지](/images/jekyll_directorystructure/post_example.png)
 
 	글을 포스팅할 때 이 헤더가 빠지면 작성한 포스트가 블로그에서 보이지 않습니다. 반드시 넣어주셔야 합니다.
 

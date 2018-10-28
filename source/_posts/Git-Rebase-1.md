@@ -22,7 +22,7 @@ git을 처음 배우면 보통 `git add`와 `git commit`을 중점적으로 배�
 
 만약에 아래와 같은 두 개의 브랜치를 merge한다고 합시다.
 
-![Merge 전 두 개의 브랜치](https://zeniuus.github.io/assets/images/git_rebase_example/git_two_branches.png)
+![Merge 전 두 개의 브랜치](/images/git_rebase_example/git_two_branches.png)
 
 두 개의 브랜치를 merge하기 위해서 보통
 
@@ -31,13 +31,13 @@ git을 처음 배우면 보통 `git add`와 `git commit`을 중점적으로 배�
 
 를 하겠죠? 그러면 아래와 같이 두 개의 브랜치를 3-way merging을 통해 merge하게 됩니다.
 
-![git merge를 통한 merge](https://zeniuus.github.io/assets/images/git_rebase_example/git_merging_with_git_merge.png)
+![git merge를 통한 merge](/images/git_rebase_example/git_merging_with_git_merge.png)
 
 많이들 보시던 브랜치의 모양이죠? `git merge`를 통해 merge를 하면 이런 식으로 2개의 커밋을 포인팅하는 새로운 커밋이 생기고 이를 브랜치가 가리키게 됩니다.
 
 이게 무엇이 문제냐 하면, 만약 여러명이 작업을 하고 있는 경우에 계속 `git merge`를 통해서 할 경우에 아래와 같이 지저분한 커밋 히스토리가 생기게 됩니다.
 
-![지저분한 커밋 히스토리](https://zeniuus.github.io/assets/images/git_rebase_example/git_dirty_commit_history.png)
+![지저분한 커밋 히스토리](/images/git_rebase_example/git_dirty_commit_history.png)
 
 이러면 다른 사람이 이 레포지토리에서 작업을 하려고 할 때 무슨 의도로 저런 작업들을 한건지 파악하기 힘들겠죠?
 
@@ -52,7 +52,7 @@ git을 처음 배우면 보통 `git add`와 `git commit`을 중점적으로 배�
 
 의 커맨드를 통해 merge를 했다면, 결과적으로 레포지토리에 남는 커밋 히스토리는 아래와 같은 모양을 띕니다.
 
-![git rebase를 통한 merge 1](https://zeniuus.github.io/assets/images/git_rebase_example/git_merging_with_git_rebase_1.png)
+![git rebase를 통한 merge 1](/images/git_rebase_example/git_merging_with_git_rebase_1.png)
 
 이 다음에 fast-forward를 시키기 위해
 
@@ -61,7 +61,7 @@ git을 처음 배우면 보통 `git add`와 `git commit`을 중점적으로 배�
 
 를 하면!
 
-![git rebase를 통한 merge 2](https://zeniuus.github.io/assets/images/git_rebase_example/git_merging_with_git_rebase_2.png)
+![git rebase를 통한 merge 2](/images/git_rebase_example/git_merging_with_git_rebase_2.png)
 
 짜잔~ 깔끔한 커밋 히스토리가 남게 되었습니다.
 
