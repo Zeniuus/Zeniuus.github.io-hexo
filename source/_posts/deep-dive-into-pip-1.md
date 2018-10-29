@@ -107,5 +107,10 @@ pip install -U -r requirements-dev.txt
 나는 눈물을 머금고 setuptools에 대해서 검색하러 갈 수 밖에 없었다.
 <br/>
 
-(다음 내용은 setuptools에 대한 내용입니다.)
+([다음 포스트](/2018/10/30/deep-dive-into-pip-2/)는 setuptools에 대한 내용입니다.)
 <br/>
+
+## Reference
+- [pip 공식 다큐멘테이션 - User Guide](https://pip.pypa.io/en/stable/user_guide/)
+- [pip 공식 다큐멘테이션 - Reference (pip install)](https://pip.pypa.io/en/stable/reference/pip_install/)
+- [setuptools 공식 다큐멘테이션](https://setuptools.readthedocs.io/en/latest/setuptools.html)
