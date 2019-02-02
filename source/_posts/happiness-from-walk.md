@@ -3,6 +3,8 @@ title: 2018.05.05.
 date: 2018-05-05 18:24:18
 categories:
   - Diary
+tags:
+  - Private
 ---
 <br />
 > 나름대로 분주히 뭔가 한 것 같은데
