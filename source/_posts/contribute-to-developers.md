@@ -1,5 +1,5 @@
 ---
-title: 2018.10.19
+title: 2018.10.19.
 date: 2018-10-19 22:14:10
 categories:
   - Diary
