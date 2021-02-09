@@ -1,5 +1,5 @@
 ---
-title: GoF의 Design Patterns
+title: Design Patterns - GoF
 date: 2021-01-31 20:49:56
 categories:
   - Develop
