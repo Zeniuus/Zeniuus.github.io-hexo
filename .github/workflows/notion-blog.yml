@@ -13,6 +13,10 @@ on:
   repository_dispatch:
     types: [notion-publish]   # arbitrary – call this event name from your API
 
+permissions:
+  contents: write
+  id-token: write
+
 # 2️⃣ Job definition ─────────
 jobs:
   publish:
@@ -27,9 +31,28 @@ jobs:
 
     steps:
       # 3️⃣ Checkout repo (incl. submodules)
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          # required
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          # owner is required, otherwise the creds will fail the checkout step
+          owner: ${{ github.repository_owner }}
+      
+      - name: Configure Git authentication with GitHub App token
+        run: |
+          git config --global user.email jsh56son@gmail.com
+          git config --global user.name Zeniuus
+          git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf "https://github.com/"
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ github.head_ref }}
+          # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
+          persist-credentials: false
           submodules: recursive
 
       # 4️⃣ Set up Node 20.19.3
@@ -54,20 +77,22 @@ jobs:
         run: |
           filename=$(node notion-to-jekyll.js | grep '^filename=' | cut -d= -f2)
           echo "filename=$filename" >> "$GITHUB_OUTPUT"
-
+      
       # 8️⃣ Build + deploy the Hexo site
       - name: Hexo generate & deploy
         run: hexo deploy --generate
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
       # 9️⃣ Commit & push content changes, if any
       - name: Commit generated content
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add source/
           if [[ -n "$(git status --porcelain)" ]]; then
             git commit -m "chore(blog): create/update ${{ steps.notion.outputs.filename }}"
             git push
           else
             echo "No changes to commit."
           fi
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

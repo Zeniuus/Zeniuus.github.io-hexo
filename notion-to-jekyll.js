@@ -19,7 +19,13 @@ async function main() {
     process.exit(1);
   }
 
-  const page = await notion.pages.retrieve({ page_id: PAGE_ID });
+  let page;
+  try {
+    page = await notion.pages.retrieve({ page_id: PAGE_ID });
+  } catch (err) {
+    console.error('❌ Failed to fetch page from Notion API:', err.message || err);
+    process.exit(1);
+  }
   const title = page.properties?.Name?.title?.[0]?.plain_text || 'Untitled';
   const blogUrlTitle = page.properties?.['Blog URL title']?.rich_text?.[0]?.plain_text;
   const category = page.properties?.['Category']?.select?.name;

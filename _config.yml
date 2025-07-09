@@ -13,7 +13,7 @@ favicon: /images/favicon.png
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://suhwan.dev
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -79,4 +79,8 @@ theme: vexo
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://zeniuus@github.com/zeniuus/zeniuus.github.io
+  # repo: git@github.com:zeniuus/zeniuus.github.io.git
+  repo: https://github.com/zeniuus/zeniuus.github.io
+  token: $GITHUB_TOKEN
+  name: Zeniuus
+  email: jsh56son@gmail.com
