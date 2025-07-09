@@ -1,0 +1,73 @@
+name: Publish blog post from Notion
+
+# 1️⃣ Triggers ────────────────
+on:
+  workflow_dispatch:
+    inputs:
+      database-id:
+        description: "Notion database ID"
+        required: true
+      page-id:
+        description: "Notion page ID"
+        required: true
+  repository_dispatch:
+    types: [notion-publish]   # arbitrary – call this event name from your API
+
+# 2️⃣ Job definition ─────────
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    # Make the Notion secret and IDs available to every step
+    env:
+      NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+      # Prefer workflow_dispatch inputs; fall back to repository_dispatch payload
+      NOTION_DATABASE_ID: ${{ github.event.inputs.database-id || github.event.client_payload.database_id }}
+      NOTION_PAGE_ID:     ${{ github.event.inputs.page-id     || github.event.client_payload.page_id }}
+
+    steps:
+      # 3️⃣ Checkout repo (incl. submodules)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # 4️⃣ Set up Node 20.19.3
+      - name: Use Node.js 20.19.3
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.3
+          cache: "npm"
+
+      # 5️⃣ Install global Hexo & CLI
+      - name: Install Hexo CLI and Hexo core
+        run: |
+          npm install -g hexo-cli@4.3.2 hexo@6.0.0
+
+      # 6️⃣ Install local project deps (notion-to-md etc.)
+      - name: Install project dependencies
+        run: npm install
+
+      # 7️⃣ Generate / update the Markdown post
+      - name: Run Notion → Jekyll converter
+        id: notion
+        run: |
+          filename=$(node notion-to-jekyll.js | grep '^filename=' | cut -d= -f2)
+          echo "filename=$filename" >> "$GITHUB_OUTPUT"
+
+      # 8️⃣ Build + deploy the Hexo site
+      - name: Hexo generate & deploy
+        run: hexo deploy --generate
+
+      # 9️⃣ Commit & push content changes, if any
+      - name: Commit generated content
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git commit -m "chore(blog): create/update ${{ steps.notion.outputs.filename }}"
+            git push
+          else
+            echo "No changes to commit."
+          fi

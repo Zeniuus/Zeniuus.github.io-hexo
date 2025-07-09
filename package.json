@@ -6,6 +6,8 @@
     "version": "6.0.0"
   },
   "dependencies": {
+    "@notionhq/client": "^4.0.0",
+    "dotenv": "^17.1.0",
     "hexo": "^6.0.0",
     "hexo-deployer-git": "^0.3.1",
     "hexo-generator-archive": "^0.1.4",
@@ -15,6 +17,7 @@
     "hexo-renderer-ejs": "^0.3.0",
     "hexo-renderer-marked": "^0.3.0",
     "hexo-renderer-stylus": "^0.3.1",
-    "hexo-server": "^0.2.0"
+    "hexo-server": "^0.2.0",
+    "notion-to-md": "^3.1.9"
   }
 }
