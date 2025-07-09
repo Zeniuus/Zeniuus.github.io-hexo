@@ -1,0 +1,6 @@
+[submodule "themes/vexo"]
+	path = themes/vexo
+	url = https://github.com/zeniuus/hexo-theme-vexo.git
+[submodule ".deploy_git"]
+	path = .deploy_git
+	url = https://github.com/zeniuus/zeniuus.github.io.git
