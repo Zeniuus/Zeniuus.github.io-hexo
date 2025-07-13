@@ -7,9 +7,6 @@ on:
       database-id:
         description: "Notion database ID"
         required: true
-      page-id:
-        description: "Notion page ID"
-        required: true
   repository_dispatch:
     types: [notion-publish]   # arbitrary – call this event name from your API
 
@@ -27,7 +24,6 @@ jobs:
       NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
       # Prefer workflow_dispatch inputs; fall back to repository_dispatch payload
       NOTION_DATABASE_ID: ${{ github.event.inputs.database-id || github.event.client_payload.database_id }}
-      NOTION_PAGE_ID:     ${{ github.event.inputs.page-id     || github.event.client_payload.page_id }}
 
     steps:
       # 3️⃣ Checkout repo (incl. submodules)

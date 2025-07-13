@@ -7,21 +7,21 @@ require('dotenv').config();
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
-const PAGE_ID = process.env.NOTION_PAGE_ID;
+const DATABASE_ID = process.env.NOTION_DATABASE_ID;
 
 function isKebabCase(str) {
   return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(str);
 }
 
-async function main() {
-  if (!PAGE_ID) {
+async function sync_single_notion_page(pageId) {
+  if (!pageId) {
     console.error('❌ NOTION_PAGE_ID is missing.');
     process.exit(1);
   }
 
   let page;
   try {
-    page = await notion.pages.retrieve({ page_id: PAGE_ID });
+    page = await notion.pages.retrieve({ page_id: pageId });
   } catch (err) {
     console.error('❌ Failed to fetch page from Notion API:', err.message || err);
     process.exit(1);
@@ -42,7 +42,7 @@ async function main() {
     process.exit(1);
   }
 
-  const mdBlocks = await n2m.pageToMarkdown(PAGE_ID);
+  const mdBlocks = await n2m.pageToMarkdown(pageId);
   const { parent: mdStringRaw } = n2m.toMarkdownString(mdBlocks);
 
   // Add <br> tag between markdown headings
@@ -68,6 +68,34 @@ async function main() {
   fs.writeFileSync(filepath, frontmatter + mdString);
   console.log(`✅ Markdown post created: ${filepath}`);
   console.log(`filename=${filename}`);
+}
+
+async function sync_recent_notion_pages(databaseId, limit = 10) {
+  if (!databaseId) {
+    console.error('❌ NOTION_DATABASE_ID is missing.');
+    process.exit(1);
+  }
+
+  let pages;
+  try {
+    const response = await notion.databases.query({
+      database_id: databaseId,
+      sorts: [{ timestamp: 'created_time', direction: 'descending' }],
+      page_size: limit,
+    });
+    pages = response.results;
+  } catch (err) {
+    console.error('❌ Failed to query Notion database:', err.message || err);
+    process.exit(1);
+  }
+
+  for (const page of pages) {
+    await sync_single_notion_page(page.id);
+  }
+}
+
+async function main() {
+  await sync_recent_notion_pages(DATABASE_ID);
 }
 
 main().catch(err => {
