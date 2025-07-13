@@ -69,10 +69,8 @@ jobs:
 
       # 7️⃣ Generate / update the Markdown post
       - name: Run Notion → Jekyll converter
-        id: notion
         run: |
-          filename=$(node notion-to-jekyll.js | grep '^filename=' | cut -d= -f2)
-          echo "filename=$filename" >> "$GITHUB_OUTPUT"
+          node notion-to-jekyll.js
       
       # 8️⃣ Build + deploy the Hexo site
       - name: Hexo generate & deploy
@@ -85,7 +83,7 @@ jobs:
         run: |
           git add source/
           if [[ -n "$(git status --porcelain)" ]]; then
-            git commit -m "chore(blog): create/update ${{ steps.notion.outputs.filename }}"
+            git commit -m "chore(blog): sync notion articles"
             git push
           else
             echo "No changes to commit."
