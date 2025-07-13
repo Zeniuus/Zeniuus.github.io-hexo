@@ -48,6 +48,7 @@ async function sync_single_notion_page(pageId) {
   // Add <br> tag between markdown headings
   const mdString = mdStringRaw
     .replace(/(^|\n)(#+ .+?)\n/g, '$1$2\n<br>\n')
+    .replace(/\n\n    /g, '\n    ');
 
   const filename = `${blogUrlTitle}.md`;
   const filepath = path.join(__dirname, 'source/_posts', filename);
